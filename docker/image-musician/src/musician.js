@@ -18,8 +18,8 @@ function Musician(instrument) {
     this.instrument = instrument;
 
     Musician.prototype.update = function() {
-        // Do something on update!
 
+        //Only send the sound, just like a real Musician!
         var sonEmis = {
             sound: instruments[instrument]
         };
@@ -43,8 +43,10 @@ function Musician(instrument) {
 
 }
 
+// Get the argument from the command line
 var instrument = process.argv[2];
 
+//Check if the argument is correct
 if(instrument == undefined){
     console.log("USE: docker run -i -t musician {instrument}");
     return;

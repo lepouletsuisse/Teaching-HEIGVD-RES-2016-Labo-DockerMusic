@@ -34,6 +34,9 @@ s.bind(protocol.PROTOCOL_PORT, function () {
  * */
 net.createServer(function (socket) {
 
+    /*
+    * Create a structure that allow the good parsing of the class to send to the TCP socket
+    * */
     var musicianToSend = [];
     Object.keys(activeMusician).forEach(function(key, index){
         var musicianTmp = {};
@@ -53,6 +56,7 @@ net.createServer(function (socket) {
  */
 var blacklist = [];
 s.on('message', function (msg, source) {
+    // Use a blacklist in case of a bad sound
     if (blacklist.indexOf(source.address) == -1) {
         var message = JSON.parse(msg);
         var sound = message["sound"];
@@ -70,9 +74,9 @@ s.on('message', function (msg, source) {
             console.log("New musician! " + instrumentName + " from " + source.address);
         }
     }
-    setInterval(deamonCheckDate, 1000);
-
 });
+
+setInterval(deamonCheckDate, 1000);
 
 function deamonCheckDate(){
     Object.keys(activeMusician).forEach(function(key, index){
@@ -84,6 +88,7 @@ function deamonCheckDate(){
 }
 
 /*
+ * Create the UUID in a random way with a random generator
  * Found on internet (Thank you stackoverflow!!)
  * http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
  * */
@@ -97,4 +102,3 @@ function guid() {
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
         s4() + '-' + s4() + s4() + s4();
 }
-
