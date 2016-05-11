@@ -134,14 +134,14 @@ async.parallel(startContainerFunctions, function(err, results) {
 	var numberOfRemainingTests = 4;
 	
 	/*
-	 * We wait 2 seconds before making the first check. During this check, the auditor should have detected
+	 * We wait 5 seconds before making the first check. During this check, the auditor should have detected
 	 * the 10 musicians.
 	 */
 	setTimeout(function() {
 		
 		/*
 		 * Check that the auditor has detected all running musicians, then schedule a new test, where we kill a
-		 * musician, wait for 6 seconds and check the status.
+		 * musician, wait for 8 seconds and check the status.
 		 */
 		compareAuditorStateAgainstRunningContainers(function(err, result) {
 			checkThatAuditorDetectsKilledContainer();			
@@ -159,10 +159,10 @@ async.parallel(startContainerFunctions, function(err, results) {
 					console.log("Scheduling a new test");
 					checkThatAuditorDetectsKilledContainer();					
 				});
-			}, 6000);			
+			}, 8000);			
 		}
 		
 		
-	}, 2000);
+	}, 5000);
 });
 
