@@ -37,6 +37,7 @@ net.createServer(function (socket) {
     /*
     * Create a structure that allow the good parsing of the class to send to the TCP socket
     * */
+    deamonCheckDate();
     var musicianToSend = [];
     Object.keys(activeMusician).forEach(function(key, index){
         var musicianTmp = {};
@@ -76,11 +77,12 @@ s.on('message', function (msg, source) {
     }
 });
 
+//Launch a Deamon for checking the age of musician each second
 setInterval(deamonCheckDate, 1000);
 
 function deamonCheckDate(){
     Object.keys(activeMusician).forEach(function(key, index){
-        if(Date.now() - this[key].lastUpdated > 10000){
+        if(Date.now() - this[key].lastUpdated > 5000){
             console.log("Looks like musician " + key + " with instrument " + this[key].instrument + " is not playing anymore :(");
             delete this[key];
         }
